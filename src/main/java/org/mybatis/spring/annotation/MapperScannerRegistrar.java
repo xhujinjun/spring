@@ -64,11 +64,13 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
       scanner.setResourceLoader(resourceLoader);
     }
 
+    //获取自定义注解类
     Class<? extends Annotation> annotationClass = annoAttrs.getClass("annotationClass");
     if (!Annotation.class.equals(annotationClass)) {
       scanner.setAnnotationClass(annotationClass);
     }
 
+    //获取
     Class<?> markerInterface = annoAttrs.getClass("markerInterface");
     if (!Class.class.equals(markerInterface)) {
       scanner.setMarkerInterface(markerInterface);

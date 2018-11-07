@@ -88,6 +88,7 @@ public final class SqlSessionUtils {
     notNull(sessionFactory, NO_SQL_SESSION_FACTORY_SPECIFIED);
     notNull(executorType, NO_EXECUTOR_TYPE_SPECIFIED);
 
+    //获取事务资源
     SqlSessionHolder holder = (SqlSessionHolder) TransactionSynchronizationManager.getResource(sessionFactory);
 
     SqlSession session = sessionHolder(executorType, holder);
@@ -100,7 +101,7 @@ public final class SqlSessionUtils {
     }
 
     session = sessionFactory.openSession(executorType);
-
+    //注册同步器
     registerSessionHolder(sessionFactory, executorType, exceptionTranslator, session);
 
     return session;
@@ -213,6 +214,7 @@ public final class SqlSessionUtils {
   }
 
   /**
+   * mybatis的事务同步器(SqlSessionSynchronization)
    * Callback for cleaning up resources. It cleans TransactionSynchronizationManager and
    * also commits and closes the {@code SqlSession}.
    * It assumes that {@code Connection} life cycle will be managed by
